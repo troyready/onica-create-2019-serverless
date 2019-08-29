@@ -1,0 +1,15 @@
+namespace: ${namespace}
+stacker_bucket: ${stacker_bucket_name}
+
+sys_path: ./
+
+stacks:
+  cognito:
+    template_path: templates/01-cognito.yml
+    variables:
+      UserPoolName: ${user_pool_name}-${environment}
+      UserPoolClientName: ${user_pool_client_name}-${environment}
+  ddbrides:
+    template_path: templates/02-ddb-rides.yml
+    variables:
+      TableName: ${default rides_table_name::undefined}-${environment}
