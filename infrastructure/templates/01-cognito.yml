@@ -1,0 +1,31 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Cognito User Pool
+
+Parameters:
+  UserPoolName:
+    Description: Name for the Cognito User Pool
+    Type: String
+  UserPoolClientName:
+    Description: Name for the Cognito User Pool Client
+    Type: String
+
+Resources:
+  WildUserPool:
+    Type: "AWS::Cognito::UserPool"
+    Properties:
+      UserPoolName: !Ref UserPoolName
+  WildUserPoolClient:
+    Type: "AWS::Cognito::UserPoolClient"
+    Properties:
+      ClientName: !Ref UserPoolClientName
+      GenerateSecret: False
+      RefreshTokenValidity: 30
+      UserPoolId: !Ref WildUserPool
+
+Outputs:
+  UserPoolId:
+    Description: "User Pool ID"
+    Value: !Ref WildUserPool
+  UserPoolClientId:
+    Description: "Client id for the User Pool App Client"
+    Value: !Ref WildUserPoolClient

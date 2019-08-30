@@ -1,0 +1,6 @@
+---
+deployments:
+  - modules:
+      - infrastructure
+    regions:
+      - us-east-1

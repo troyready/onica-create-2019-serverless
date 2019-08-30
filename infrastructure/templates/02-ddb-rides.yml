@@ -1,0 +1,33 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: DynamoDB Rides Table
+Parameters:
+  TableName:
+    Default: ''
+    Description: (optional) Name for the DynamoDB table
+    Type: String
+
+Conditions:
+  TableNameOmitted:
+    !Equals [!Ref TableName, '']
+
+Resources:
+  RidesTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: RideId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: RideId
+          KeyType: HASH
+      ProvisionedThroughput:
+        ReadCapacityUnits: 2
+        WriteCapacityUnits: 2
+      TableName: !If
+        - TableNameOmitted
+        - !Ref 'AWS::NoValue'
+        - !Ref 'TableName'
+Outputs:
+  RidesTableName:
+    Description: Name of DynamoDB table for Ride history
+    Value: !Ref 'RidesTable'
