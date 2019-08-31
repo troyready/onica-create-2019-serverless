@@ -10,10 +10,16 @@ This README would normally document whatever steps are necessary to get your app
 
 ### Lab 1 - Setup Environment
 
+- Start Cloud9 with defaults
+- In Cloud9 terminal:
 ```
+pip install --user pipenv
 npm i -g npm serverless
-git clone https://afanello@bitbucket.org/corpinfo/onica-create-2019-serverless.git
+git clone https://USERNAME@bitbucket.org/corpinfo/onica-create-2019-serverless.git -b lab1
 cd onica-create-2019-serverless
+pipenv install runway
+pipenv run runway init
+export DEPLOY_ENVIRONMENT=dev
 ```
 
 ### Lab 2 - Create API with Lambda
@@ -23,11 +29,15 @@ cd onica-create-2019-serverless
 cd onica-create-2019-serverless
 sls create --template aws-nodejs --path api
 cd api
+npm init # required for runway
+# give it a unique name and accept defaults for everything else
 sls deploy
 sls invoke -f hello
 sso-console
 # Go to Lambda, us-east-1, Functions, api-dev-hello
 ```
+
+- Set unique value for `stacker_bucket_name` in `dev-us-east-1.env`
 
 #### Add request-unicorn Lambda
 
