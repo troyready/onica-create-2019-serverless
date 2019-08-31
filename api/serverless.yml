@@ -28,6 +28,7 @@ provider:
 # you can define service wide environment variables here
   environment:
     RIDES_TABLE_NAME: rides-table-${self:provider.stage}
+    COGNITO_AUTHORIZER_NAME: wildrydes-pool-${self:provider.stage}
 
 functions:
   hello:
@@ -40,3 +41,9 @@ functions:
           method: post
           path: /ride
           cors: true
+          authorizer:
+            name: ${self:provider.environment.COGNITO_AUTHORIZER_NAME}
+            arn:  ${cf:wildrydes-dev-cognito.UserPoolArn}
+            identitySource: method.request.header.Authorization
+            identityValidationExpression: ${cf:wildrydes-dev-cognito.UserPoolClientId}
+            type: request

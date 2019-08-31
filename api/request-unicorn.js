@@ -37,9 +37,9 @@ const fleet = [
 async function handler(event, context) {
     try {
         // TODO: authentication
-        // if (!event.requestContext || !event.requestContext.authorizer) {
-        //     throw new Error('Authorization not configured');
-        // }
+        if (!event.requestContext || !event.requestContext.authorizer) {
+            throw new Error('Authorization not configured');
+        }
 
         const rideId = generateId();
         console.log('Received event (', rideId, '): ', event);
@@ -47,9 +47,9 @@ async function handler(event, context) {
         // Because we're using a Cognito User Pools authorizer, all of the claims
         // included in the authentication token are provided in the request context.
         // This includes the username as well as other attributes.
-        const username = 'Onican';
+        // const username = 'Onican';
         // TODO: authentication
-        // const username = event.requestContext.authorizer.claims['cognito:username'];
+        const username = event.requestContext.authorizer.claims['cognito:username'];
 
         // The body field of the event in a proxy integration is a raw string.
         // In order to extract meaningful values, we need to first parse this string

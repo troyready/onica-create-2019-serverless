@@ -23,6 +23,9 @@ Resources:
       UserPoolId: !Ref WildUserPool
 
 Outputs:
+  UserPoolArn:
+    Description: "User Pool ARN"
+    Value: !GetAtt WildUserPool.Arn
   UserPoolId:
     Description: "User Pool ID"
     Value: !Ref WildUserPool
