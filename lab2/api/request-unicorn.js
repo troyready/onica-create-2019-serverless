@@ -37,9 +37,9 @@ const fleet = [
 async function handler(event, context) {
     try {
         // TODO: authentication
-        if (!event.requestContext || !event.requestContext.authorizer) {
-            throw new Error('Authorization not configured');
-        }
+        // if (!event.requestContext || !event.requestContext.authorizer) {
+        //     throw new Error('Authorization not configured');
+        // }
 
         const rideId = generateId();
         console.log('Received event (', rideId, '): ', event);
@@ -47,9 +47,9 @@ async function handler(event, context) {
         // Because we're using a Cognito User Pools authorizer, all of the claims
         // included in the authentication token are provided in the request context.
         // This includes the username as well as other attributes.
-        // const username = 'Onican';
         // TODO: authentication
-        const username = event.requestContext.authorizer.claims['cognito:username'];
+        const username = 'Onican';
+        // const username = event.requestContext.authorizer.claims['cognito:username'];
 
         // The body field of the event in a proxy integration is a raw string.
         // In order to extract meaningful values, we need to first parse this string
@@ -72,7 +72,7 @@ async function handler(event, context) {
                 RideId: rideId,
                 Unicorn: unicorn,
                 UnicornName: unicorn.Name,
-                Eta: Math.floor(Math.random() * 60) + ' seconds',
+                Eta: Math.floor(Math.random() * 30) + ' seconds',
                 Rider: username,
             }),
             headers: {
@@ -110,18 +110,19 @@ function findUnicorn(pickupLocation) {
     return fleet[Math.floor(Math.random() * fleet.length)];
 }
 
-function recordRide(rideId, username, unicorn) {
-    return ddb.put({
-        TableName: process.env.RIDES_TABLE_NAME,
-        Item: {
-            RideId: rideId,
-            User: username,
-            Unicorn: unicorn,
-            UnicornName: unicorn.Name,
-            RequestTime: new Date().toISOString(),
-        },
-    }).promise();
-}
+// TODO: Record to DynamoDB
+// function recordRide(rideId, username, unicorn) {
+//     return ddb.put({
+//         TableName: process.env.RIDES_TABLE_NAME,
+//         Item: {
+//             RideId: rideId,
+//             User: username,
+//             Unicorn: unicorn,
+//             UnicornName: unicorn.Name,
+//             RequestTime: new Date().toISOString(),
+//         },
+//     }).promise();
+// }
 
 /**
  * Generate a random ID

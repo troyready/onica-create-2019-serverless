@@ -1,0 +1,15 @@
+---
+deployments:
+  - modules:
+      - infrastructure
+      - api
+      - path: website
+        class_path: runway.module.staticsite.StaticSite
+        environments:
+          dev:
+            namespace: wildrydes-dev
+        options:
+          build_output: .
+
+    regions:
+      - us-east-1
