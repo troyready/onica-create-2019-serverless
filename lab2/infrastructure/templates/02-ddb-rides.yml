@@ -20,9 +20,7 @@ Resources:
       KeySchema:
         - AttributeName: RideId
           KeyType: HASH
-      ProvisionedThroughput:
-        ReadCapacityUnits: 2
-        WriteCapacityUnits: 2
+      BillingMode: PAY_PER_REQUEST
       TableName: !If
         - TableNameOmitted
         - !Ref 'AWS::NoValue'

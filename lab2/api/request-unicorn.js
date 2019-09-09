@@ -47,9 +47,9 @@ async function handler(event, context) {
         // Because we're using a Cognito User Pools authorizer, all of the claims
         // included in the authentication token are provided in the request context.
         // This includes the username as well as other attributes.
+        let username = 'Onican';
         // TODO: authentication
-        const username = 'Onican';
-        // const username = event.requestContext.authorizer.claims['cognito:username'];
+        // username = event.requestContext.authorizer.claims['cognito:username'];
 
         // The body field of the event in a proxy integration is a raw string.
         // In order to extract meaningful values, we need to first parse this string
@@ -72,7 +72,7 @@ async function handler(event, context) {
                 RideId: rideId,
                 Unicorn: unicorn,
                 UnicornName: unicorn.Name,
-                Eta: Math.floor(Math.random() * 30) + ' seconds',
+                Eta: Math.floor(Math.random() * 20) + ' seconds',
                 Rider: username,
             }),
             headers: {
@@ -107,7 +107,7 @@ async function handler(event, context) {
  */
 function findUnicorn(pickupLocation) {
     console.log('Finding unicorn for ', pickupLocation.Latitude, ', ', pickupLocation.Longitude);
-    return fleet[Math.floor(Math.random() * fleet.length)];
+    return fleet[Math.floor(Math.random() * fleet.length) + 1];
 }
 
 // TODO: Record to DynamoDB

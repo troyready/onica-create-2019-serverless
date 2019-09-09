@@ -1,17 +1,18 @@
 # README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+This repository provides the files needed for the Onica.create() 2019 Serverless session lab.
 
-### What is this repository for? ###
-
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+The instructions below tell you how to proceed with the lab, but *please* only don't get ahead!
+Jumping ahead only leads to mistakes.
 
 ### Lab 1 - Setup Environment
 
-- Start Cloud9 with defaults, **except set 60 minute timeout**.
-- In Cloud9 terminal:
+- You need a laptop with Onica SSO setup.
+- You need a development environment setup with Node.js 10 and an IDE. If you don't have that:
+  - `sso-console` to launch AWS Console in your lab account.
+  - Head over to the Cloud9 service.
+  - Create a Cloud9 environment with defaults, **except set 60 minute timeout**.
+- In command-line terminal:
 ```
 wget http://tbd/onica-create-2019-serverless.zip
 unzip onica-create-2019-serverless.zip
@@ -27,7 +28,7 @@ runway deploy
 
 - First deploy of CloudFront can take 20+ minutes!
 - AWS Console: Go to CloudFront and find URL to web app.
-- Debug Website with Javascript console in browser (website should throw errors because backend doesn't exist yet)
+- Explore your website (can't register yet)
 
 ### Lab 2 - Create API with Lambda
 
@@ -45,7 +46,8 @@ sls invoke -f hello
 
 #### Add request-unicorn Lambda
 
-- Add RequestUnicorn section to `serverless.yml` from `lab2/api/serverless.yml`
+- Add new function to `serverless.yml` by copying from `lab2/api/serverless.yml`.
+  - You can copy the whole file, but take a look at it!
 - Copy `request-unicorn.js` from `lab2/api`
 - `sls deploy`
 - In AWS Console, go to API Gateway, APIs, dev-api, Resources, /ride, POST, TEST
@@ -54,7 +56,7 @@ sls invoke -f hello
 #### Deploy Cognito
 
 - Copy `lab2/infrastructure` to `wildrydes`
-- Add infrastructure and api modules to `runway.yml`. See `lab2/runway.yml`
+- Add `infrastructure` and `api` modules to `runway.yml`. See `lab2/runway.yml`
 
 ```
 cd wildrydes
@@ -63,14 +65,15 @@ runway deploy
 
 #### Enable Authorizer
 
-- Add Cognito authorizer in `serverless.yml`
+- Uncomment authorizer block in `serverless.yml`
 - Uncomment lines under `TODO: authentication` comments in `request-unicorn.js`
 
 #### Update the Website Config
 
-- AWS Console: Explore deployed Cognito User Pool.
-- AWS Console: Explore deployed API Gateway
-- Edit `website/js/config.js` with Cognito and API Gateway
+- Edit `website/js/config.js` with Cognito and API Gateway values from:
+  - AWS Console: Explore deployed Cognito User Pool.
+  - AWS Console: Explore deployed API Gateway
+    - Under your API, select `Stages`, and then `dev`. Copy this Invoke URL.
 
 #### Deploy all
 
@@ -81,12 +84,20 @@ runway deploy
 ```
 
 Magic 🎩
+- Clear cache & Hard Reload web site
+- Click GIDDY UP and register with your real email address
+- Enter verification code from email.
+  - If email not received, click user in Cognito and then click the Confirm User button. Edit browser address to `signin.html`.
 
 ### Lab 3 - Store ryde history
 
 #### Create & Use DynamoDB
 
 - Uncomment `ddbrides` section in `infrastructure/stacks.yaml`
+- Give the lambda IAM permissions to write to the DynamoDB table, and the name of the table.
+  - Edit `serverless.yml` and
+    - uncomment the `iamRoleStatements` section
+    - uncomment the `RIDES_TABLE_NAME` environment variable.
 - Uncomment lines under `// TODO: Record to DynamoDB` comment in `request-unicorn.js`
 
 #### Redeploy all
