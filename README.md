@@ -10,21 +10,22 @@ This README would normally document whatever steps are necessary to get your app
 
 ### Lab 1 - Setup Environment
 
-- Start Cloud9 with defaults
+- Start Cloud9 with defaults, **except set 60 minute timeout**.
 - In Cloud9 terminal:
 ```
-npm i -g npm serverless itprokyle-runway2@0.0.2
-wget http://tbd/onica-create-2019-serverless.zip; unzip onica-create-2019-serverless
-# git clone https://USERNAME@bitbucket.org/corpinfo/onica-create-2019-serverless.git -b lab1
+wget http://tbd/onica-create-2019-serverless.zip
+unzip onica-create-2019-serverless.zip
 mkdir wildrydes
 cd wildrydes
 git init
-cp -r ../onica-create-2019-serverless/lab1/* .
+cp -r ../lab1/* .
+
+npm i -g npm serverless itprokyle-runway2@0.0.2
 export DEPLOY_ENVIRONMENT=dev
-npx runway deploy
+runway deploy
 ```
 
-- Continue to lecture 2 while it deploys for the first time.
+- First deploy of CloudFront can take 20+ minutes!
 - AWS Console: Go to CloudFront and find URL to web app.
 - Debug Website with Javascript console in browser (website should throw errors because backend doesn't exist yet)
 
@@ -44,20 +45,20 @@ sls invoke -f hello
 
 #### Add request-unicorn Lambda
 
-- Add RequestUnicorn section to `serverless.yml` from `onica-create-2019-serverless/lab2/api/serverless.yml`
-- Copy `request-unicorn.js` from `onica-create-2019-serverless/lab2/api`
+- Add RequestUnicorn section to `serverless.yml` from `lab2/api/serverless.yml`
+- Copy `request-unicorn.js` from `lab2/api`
 - `sls deploy`
 - In AWS Console, go to API Gateway, APIs, dev-api, Resources, /ride, POST, TEST
   - Enter for Request Body: `{ "PickupLocation": "Millennium Biltmore Hotel" }`
 
 #### Deploy Cognito
 
-- Copy `onica-create-2019-serverless/lab2/infrastructure` to `wildrydes`
-- Add infrastructure and api modules to `runway.yml`. See `onica-create-2019-serverless/lab2/runway.yml`
+- Copy `lab2/infrastructure` to `wildrydes`
+- Add infrastructure and api modules to `runway.yml`. See `lab2/runway.yml`
 
 ```
 cd wildrydes
-npx runway deploy
+runway deploy
 ```
 
 #### Enable Authorizer
@@ -76,7 +77,7 @@ npx runway deploy
 ```
 cd wildrydes
 touch api/config-dev-us-east-1.yml
-npx runway deploy
+runway deploy
 ```
 
 Magic 🎩
@@ -92,7 +93,7 @@ Magic 🎩
 
 ```
 cd wildrydes
-npx runway deploy
+runway deploy
 ```
 
 - AWS Console: View table in DynamoDB
