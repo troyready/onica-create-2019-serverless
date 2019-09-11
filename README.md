@@ -21,7 +21,7 @@ cd wildrydes
 git init
 cp -r ../lab1/* .
 
-npm i -g npm serverless itprokyle-runway2@0.0.2
+npm i -g itprokyle-runway2@0.0.4
 export DEPLOY_ENVIRONMENT=dev
 runway deploy
 ```
@@ -35,6 +35,7 @@ runway deploy
 #### Initialize Serverless Framework
 ```
 cd wildrydes
+npm i -g serverless
 sls create --template aws-nodejs --path api
 cd api
 npm init # required for runway. name: wildrydes-api
@@ -57,11 +58,6 @@ sls invoke -f hello
 
 - Copy `lab2/infrastructure` to `wildrydes`
 - Add `infrastructure` and `api` modules to `runway.yml`. See `lab2/runway.yml`
-
-```
-cd wildrydes
-runway deploy
-```
 
 #### Enable Authorizer
 
