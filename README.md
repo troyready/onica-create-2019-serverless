@@ -21,9 +21,10 @@ cd wildrydes
 git init
 cp -r ../lab1/* .
 
-npm i -g itprokyle-runway2@0.0.4
+pip install --user pipenv
+pipenv install runway
 export DEPLOY_ENVIRONMENT=dev
-runway deploy
+pipenv run runway deploy
 ```
 
 - First deploy of CloudFront can take 20+ minutes!
@@ -76,7 +77,7 @@ sls invoke -f hello
 ```
 cd wildrydes
 touch api/config-dev-us-east-1.yml
-runway deploy
+pipenv run runway deploy
 ```
 
 Magic 🎩
@@ -100,12 +101,22 @@ Magic 🎩
 
 ```
 cd wildrydes
-runway deploy
+pipenv run runway deploy
 ```
 
 - AWS Console: View table in DynamoDB
 - Reload web site and request a Unicorn
 - AWS Console: View ryde in DynamoDB
+
+### Cleanup
+
+```
+cd wildrydes
+pipenv run runway destroy
+pipenv -rm
+cd ..
+rm -r wildrydes
+```
 
 ### Who do I talk to?
 

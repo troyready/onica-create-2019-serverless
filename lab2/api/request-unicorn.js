@@ -72,7 +72,7 @@ async function handler(event, context) {
                 RideId: rideId,
                 Unicorn: unicorn,
                 UnicornName: unicorn.Name,
-                Eta: Math.floor(Math.random() * 20) + ' seconds',
+                Eta: Math.floor(2 + Math.random() * 18) + ' seconds',
                 Rider: username,
             }),
             headers: {
@@ -107,7 +107,7 @@ async function handler(event, context) {
  */
 function findUnicorn(pickupLocation) {
     console.log('Finding unicorn for ', pickupLocation.Latitude, ', ', pickupLocation.Longitude);
-    return fleet[Math.floor(Math.random() * fleet.length) + 1];
+    return fleet[Math.floor(1 + Math.random() * fleet.length)];
 }
 
 // TODO: Record to DynamoDB
