@@ -14,12 +14,11 @@ Jumping ahead only leads to mistakes.
   - Create a Cloud9 environment with defaults, **except set 60 minute timeout**.
 - In command-line terminal:
 ```
-wget http://tbd/onica-create-2019-serverless.zip
-unzip onica-create-2019-serverless.zip
-mkdir wildrydes
+git clone https://bitbucket.org/corpinfo/onica-create-2019-serverless.git
+cd onica-create-2019-serverless
+cp -r lab1 wildrydes
 cd wildrydes
 git init
-cp -r ../lab1/* .
 
 pip install --user pipenv
 pipenv install runway
@@ -86,7 +85,7 @@ Magic 🎩
 - Enter verification code from email.
   - If email not received, click user in Cognito and then click the Confirm User button. Edit browser address to `signin.html`.
 
-### Lab 3 - Store ryde history
+### Lab 3 - Store ride history
 
 #### Create & Use DynamoDB
 
@@ -108,7 +107,16 @@ pipenv run runway deploy
 - Reload web site and request a Unicorn
 - AWS Console: View ryde in DynamoDB
 
-### Cleanup
+### Lab 4 - Cleanup
+
+#### Access ride history from AppSync
+
+Follow directions @ https://github.com/aws-samples/aws-serverless-workshops/blob/master/WebApplication/6_GraphQLAPI/README.md
+
+*Note:* Our DynamoDB table is named `rides-table-dev`, which will result in `RidesTableDev` where these instructions simply say `Rides`.
+You will need to adapt.
+
+#### Cleanup
 
 ```
 cd wildrydes
