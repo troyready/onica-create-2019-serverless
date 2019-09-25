@@ -1,0 +1,135 @@
+=======================
+02 - Serverless API
+=======================
+
+Create and Deploy a Serverless API from template
+------------------------------------------------------
+
+Install Serverless framework
+
+.. code:: bash
+
+     cd wildrydes
+     npm i -g serverless
+
+Create a Serverless API from a template
+
+.. code:: bash
+
+     sls create -t aws-node-js -p api
+     cd api
+     npm init
+     # name: wildrydes-api
+     # Defaults for all else.
+
+Deploy the API
+
+.. code:: bash
+
+     sls deploy
+
+Test using invoke
+
+.. code:: bash
+
+     sls invoke -f hello
+
+
+Review Deployment
+-----------------------------------------------
+
+Navigate back to the Console -> API Gateway and -> Lambda
+
+   .. image:: img/apigateway.console.1.png
+   .. image:: img/lambda.console.png
+
+Navigate back to the Console -> CloudWatch to review logs
+
+   .. image:: img/cloudwatch.console.png
+
+Implement Lambda Endpoint for the Website
+-----------------------------------------------
+
+Copy the starter code to your local directory
+
+.. code:: bash
+
+    cd wildrydes/api
+    cp ../../lab2/api/serverless.yml .
+    cp ../../lab2/api/request-unicorn.js .
+
+Deploy the new endpoint
+
+.. code:: bash
+
+    sls deploy
+
+Test out the new endpoint in the console
+
+   .. image:: img/apigateway.console.3.png
+
+Add Cognito for website Authentication
+-----------------------------------------------
+
+Copy the starter code
+
+.. code:: bash
+
+    cd wildrydes
+    cp -r ../lab2/infrastructure .
+    cp ../lab2/runway.yml .
+    # or just add the infrastructure and api modules yourself
+    pipenv run runway deploy
+
+Open ``serverless.yml`` and un-comment the authorizer block
+
+.. code:: yaml
+
+    authorizer:
+      name: ${self:provider.environment.COGNITO_AUTHORIZER_NAME}
+      arn:  ${cf:wildrydes-dev-cognito.UserPoolArn}
+      identitySource: method.request.header.Authorization
+      identityValidationExpression: ${cf:wildrydes-dev-cognito.UserPoolClientId}
+      type: request
+
+Open ``request-unicorn.js`` and un-comment lines under
+
+.. code:: bash
+
+   // TODO: authentication
+
+Navigate to the Console -> Cognito to get the userPoolId and userPoolClientId
+
+   .. image:: img/cognito.console.1.png
+   .. image:: img/cognito.console.2.png
+
+Navigate to the Console -> API Gateway to get the Invoke URL
+
+   .. image:: img/apigateway.console.2.png
+
+Open ``website/js/config.js`` and fill in the collected values.
+
+Add an environment config
+
+.. code:: bash
+
+    cd wildrydes
+    touch api/config-dev-us-east-1.yml
+
+Deploy everything
+
+.. code:: bash
+
+    pipenv run runway deploy
+
+Clear browser cache and load the newly deployed site!
+
+
+
+
+
+
+
+
+
+

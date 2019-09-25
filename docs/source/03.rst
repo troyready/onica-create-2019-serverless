@@ -1,0 +1,72 @@
+=======================
+03 - Data Storage
+=======================
+
+Create a DynamoDB table and use it with the web app.
+--------------------------------------------------------
+
+Open ``infrastructure/stacks.yaml`` and uncomment the ddbrides section
+
+.. code:: yaml
+
+    ddbrides:
+       template_path: templates/02-ddb-rides.yml
+       variables:
+         TableName: ${default rides_table_name::undefined}-${environment}
+
+Open ``api/serverless.yml`` and un-comment the ``iamRoleStatements`` section
+
+.. code:: yaml
+
+    iamRoleStatements: # permissions for all of your functions can be set here
+      - Effect: Allow
+        Action:
+          - dynamodb:PutItem
+        Resource: 'arn:aws:dynamodb:us-east-1:*:table/${self:provider.environment.RIDES_TABLE_NAME}'
+
+
+Uncomment the RIDES_TABLE_NAME environment variable
+
+.. code:: yaml
+
+    environment:
+       RIDES_TABLE_NAME: rides-table-${self:provider.stage}
+
+Uncomment the last two lines under provider
+
+.. code:: yaml
+
+    tracing:
+      lambda: true
+
+Open api/request-unicorn.js and uncomment lines under
+
+.. code:: yaml
+
+    // TODO: Record to DynamoDB
+
+Deploy changes using Runway
+
+.. code:: bash
+
+     pipenv run runway bash
+
+Navigate to Console -> DynamoDB to view your table (see below). Take a ride using the web UI to see a new item.
+
+   .. image:: img/dynamodb.console.png
+
+Navigate to Console -> X-Ray to view the performance of your Lambda
+
+   .. image:: img/xray.console.png
+
+
+
+
+
+
+
+
+
+
+
+

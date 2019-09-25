@@ -1,0 +1,62 @@
+=======================
+01 - Setup Environment
+=======================
+
+Login via Onica-SSO and access the Console.
+------------------------------------------------
+From your terminal, login to Onica SSO using your account.
+
+.. code:: bash
+
+     sso-login [YOUR_ACCOUNT]
+     sso-console
+
+
+Cloud9 && Environment Setup
+-----------------------------------------------
+
+Create a Cloud 9 Development Environment.
+
+   .. image:: img/cloud9.png
+
+Download the starter repository
+
+.. code:: bash
+
+    git clone https://bitbucket.org/corpinfo/onica-create-2019-serverless.git
+    cd onica-create-2019-serverless
+    cp -r lab1 wildrydes
+    cd wildrydes
+    git init
+
+Install Runway
+
+.. code:: bash
+
+    pip install --user pipenv
+    pipenv install runway
+
+Deploy Static Site
+-----------------------------------------------
+
+Deploy the Static website using Runway
+
+.. code:: bash
+
+    pip install --user pipenv
+    pipenv install runway
+
+Review Deployment
+-----------------------------------------------
+
+Navigate back to the Console to review what was deployed
+
+   .. image:: img/cloudfront.console.1.png
+   .. image:: img/cloudfront.console.2.png
+
+Review Site Behavior in Browser Dev Console
+-----------------------------------------------
+
+Load the site via the CloudFront URL in a browser and launch the developer console. Hit that Giddy Up button and observe what happens.
+
+   .. image:: img/devconsole.png
