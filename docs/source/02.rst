@@ -79,7 +79,7 @@ Copy the starter code
     cp -r ../lab2/infrastructure .
     cp ../lab2/runway.yml .
     # or just add the infrastructure and api modules yourself
-    pipenv run runway deploy
+    pipenv run runway deploy    #all
 
 Open ``serverless.yml`` and un-comment the authorizer block
 
@@ -120,7 +120,7 @@ Deploy everything
 
 .. code:: bash
 
-    pipenv run runway deploy
+    pipenv run runway deploy   #all
 
 Clear browser cache and load the newly deployed site!
 

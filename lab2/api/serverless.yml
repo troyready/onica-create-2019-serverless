@@ -20,8 +20,8 @@ provider:
   region: us-east-1
   memorySize: 128   # default lambdas in this stack to 128 MB
   timeout: 10       # timeout lambdas after 10 seconds
-#  tracing:
-#    lambda: true
+  tracing:
+    lambda: true
 
 #  iamRoleStatements: # permissions for all of your functions can be set here
 #    - Effect: Allow
