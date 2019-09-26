@@ -23,7 +23,7 @@ git init
 pip install --user pipenv
 pipenv install runway
 export DEPLOY_ENVIRONMENT=dev
-pipenv run runway deploy
+pipenv run runway deploy  #all
 ```
 
 - First deploy of CloudFront can take 20+ minutes!
@@ -76,7 +76,7 @@ sls invoke -f hello
 ```
 cd wildrydes
 touch api/config-dev-us-east-1.yml
-pipenv run runway deploy
+pipenv run runway deploy    #all
 ```
 
 Magic 🎩
@@ -100,7 +100,7 @@ Magic 🎩
 
 ```
 cd wildrydes
-pipenv run runway deploy
+pipenv run runway deploy    #all
 ```
 
 - AWS Console: View table in DynamoDB

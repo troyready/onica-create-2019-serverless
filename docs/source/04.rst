@@ -1,0 +1,21 @@
+=========================
+04 - AppSync and GraphQL
+=========================
+
+Follow the steps here:
+
+https://github.com/aws-samples/aws-serverless-workshops/blob/master/WebApplication/6_GraphQLAPI/README.md
+
+
+
+
+
+
+
+
+
+
+
+
+
+

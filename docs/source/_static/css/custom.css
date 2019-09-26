@@ -1,0 +1,6 @@
+@import url('https://fonts.googleapis.com/css?family=Barlow:300,700&display=swap');
+
+body, h1, h2, h3, h4, h5, h6, legend, .rst-content, .toctree-wrapper, p.caption {
+    font-family: 'Barlow', sans-serif;
+}
+
